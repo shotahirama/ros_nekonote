@@ -1,0 +1,14 @@
+trajectory_msgs/JointTrajectory trajectory
+---
+# Same as control_msgs/FollowJointTrajectoryResult
+int32 error_code
+int32 SUCCESSFUL = 0 
+int32 INVALID_GOAL = -1
+int32 INVALID_JOINTS = -2
+int32 OLD_HEADER_TIMESTAMP = -3
+int32 PATH_TOLERANCE_VIOLATED = -4
+int32 GOAL_TOLERANCE_VIOLATED = -5
+
+string error_string
+---
+int64[] motion_id

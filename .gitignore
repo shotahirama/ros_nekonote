@@ -1,0 +1,15 @@
+# C extensions
+*.so
+
+# Python
+*.py[cod]
+
+# Packages
+build/
+bin/
+lib/
+
+# Editors
+*.swp
+*~
+.#*

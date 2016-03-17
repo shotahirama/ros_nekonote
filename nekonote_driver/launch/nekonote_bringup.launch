@@ -1,0 +1,19 @@
+<launch>
+  <!-- Common args -->
+  <arg name="joint_names" default="['joint0', 'joint1', 'joint2', 'joint3', 'joint4', 'joint5']"/>
+  <arg name="namespace_of_topics" default="robot"/>
+
+  <!-- Bringup main driver -->
+  <node name="nekonote_driver" pkg="nekonote_driver" type="nekonote_driver" output="screen">
+    <param name="address" type="str" value="192.168.1.54"/>
+    <param name="port_number" type="int" value="1023"/>
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names)</rosparam>
+    <param name="namespace_of_topics" type="str" value="$(arg namespace_of_topics)"/>
+  </node>
+
+  <!-- Bringup follow joint trajectory action server -->
+  <node name="follow_joint_trajectory_action_server" pkg="nekonote_driver" type="follow_joint_trajectory_action_server.py" output="screen">
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names)</rosparam>
+    <param name="namespace_of_topics" type="str" value="$(arg namespace_of_topics)"/>
+  </node>
+</launch>

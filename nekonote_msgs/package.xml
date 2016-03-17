@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>nekonote_msgs</name>
+  <version>0.1.0</version>
+  <description>The nekonote_msgs package contains messages required for the ROS driver for NEKONOTE</description>
+
+  <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="website">http://ros.org/wiki/nekonote_msgs/</url> -->
+  <url type="repository">https://github.com/rt-net/ros_nekonote</url>
+  <url type="bugtracker">https://github.com/rt-net/ros_nekonote/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>actionlib_msgs</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+
+</package>
