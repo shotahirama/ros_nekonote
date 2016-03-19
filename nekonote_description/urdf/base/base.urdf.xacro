@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<robot name="nekonote_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find nekonote_description)/urdf/common_constants.xacro"/>
+  <xacro:include filename="$(find nekonote_description)/urdf/common_materials.xacro"/>
+
+  <xacro:macro name="nekonote_base" params="prefix">
+    <!-- links -->
+    <link name="${prefix}base" />
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/BODY.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/BODY.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="-0.001239 -0.000962 0.075348"/>
+        <mass value="0.851526"/>
+        <inertia ixx="0.00234632" ixy="8.864e-09" ixz="-0.00019645" iyy="0.00224923" iyz="6.2667e-06" izz="0.00142133"/>
+      </inertial>
+    </link>
+    <link name="${prefix}link1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/JOINT1.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/JOINT1.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="0.000216 0 0.032195"/>
+        <mass value="0.142759"/>
+        <inertia ixx="0.00028078" ixy="0" ixz="9.5105e-07" iyy="0.0001153" iyz="0" izz="0.00026862"/>
+      </inertial>
+    </link>
+    <link name="${prefix}link2">
+      <visual>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/JOINT2.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/JOINT2.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="-0.002309 0.098761 0.00174"/>
+        <mass value="0.983205"/>
+        <inertia ixx="0.00556176" ixy="-0.00010003" ixz="-3.951e-06" iyy="0.00101996" iyz="-2.650e-05" izz="0.00513079"/>
+      </inertial>
+    </link>
+    <link name="${prefix}link3">
+      <visual>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/JOINT3.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/JOINT3.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="-0.00312 0.08754 -0.00187"/>
+        <mass value="0.552063"/>
+        <inertia ixx="0.00081437" ixy="-6.414e-06" ixz="3.2409e-06" iyy="0.00039933" iyz="-2.038e-05" izz="0.0007055"/>
+      </inertial>
+    </link>
+    <link name="${prefix}link4">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/JOINT4.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/JOINT4.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="0.00227 0.00484 0.04053"/>
+        <mass value="0.431401"/>
+        <inertia ixx="0.0004845" ixy="7.7315e-06" ixz="-4.916e-06" iyy="0.00036954" iyz="3.8537e-05" izz="0.00039301"/>
+      </inertial>
+    </link>
+    <link name="${prefix}link5">
+      <visual>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/visual/base/JOINT5.stl"/>
+        </geometry>
+        <xacro:material_grey/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
+        <geometry>
+          <mesh filename="package://nekonote_description/meshes/collision/base/JOINT5.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin rpy="0 0 0" xyz="0.001918 0.009121 -0.003233"/>
+        <mass value="0.516153"/>
+        <inertia ixx="0.00048104" ixy="2.5913e-05" ixz="-3.218e-06" iyy="0.00033885" iyz="-1.728e-05" izz="0.00051335"/>
+      </inertial>
+    </link>
+    <link name="${prefix}hand_base"/>
+
+    <!-- joints -->
+    <joint name="${prefix}base_link-base" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}base" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <joint name="${prefix}joint0" type="revolute">
+      <origin xyz="0 0 0.131" rpy="0 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link1"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+    </joint>
+    <joint name="${prefix}joint1" type="revolute">
+      <origin xyz="0 0 0.044" rpy="0 0 0"/>
+      <parent link="${prefix}link1"/>
+      <child link="${prefix}link2"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="0" velocity="0"/>
+    </joint>
+    <joint name="${prefix}joint2" type="revolute">
+      <origin xyz="0 0 0.1825" rpy="0 0 0"/>
+      <parent link="${prefix}link2"/>
+      <child link="${prefix}link3"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="-1.8353" upper="2.5837" effort="0" velocity="0"/>
+    </joint>
+    <joint name="${prefix}joint3" type="revolute">
+      <origin xyz="0 0 0.1305" rpy="0 0 0"/>
+      <parent link="${prefix}link3"/>
+      <child link="${prefix}link4"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+    </joint>
+    <joint name="${prefix}joint4" type="revolute">
+      <origin xyz="0 0 0.117" rpy="0 0 0"/>
+      <parent link="${prefix}link4"/>
+      <child link="${prefix}link5"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-1.57" upper="1.57" effort="0" velocity="0"/>
+    </joint>
+    <joint name="${prefix}joint5" type="revolute">
+      <origin xyz="0 0 0.045" rpy="0 0 0"/>
+      <parent link="${prefix}link5"/>
+      <child link="${prefix}hand_base"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+    </joint>
+  </xacro:macro>
+
+</robot>

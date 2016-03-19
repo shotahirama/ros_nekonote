@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>nekonote_description</name>
+  <version>0.1.0</version>
+  <description>The nekonote_description package contains the URDF and meshes describing NEKONOTE from RT Corp.</description>
+
+  <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="website">http://ros.org/wiki/nekonote_description/</url> -->
+  <url type="repository">https://github.com/rt-net/ros_nekonote</url>
+  <url type="bugtracker">https://github.com/rt-net/ros_nekonote/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

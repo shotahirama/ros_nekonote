@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<robot name="nekonote" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- NEKONOTE Base URDF -->
+  <xacro:include filename="$(find nekonote_description)/urdf/base/base.urdf.xacro" />
+  <xacro:nekonote_base prefix=""/>
+
+  <!-- End Effector -->
+  <xacro:include filename="$(find nekonote_description)/urdf/end_effector.urdf.xacro" />
+  <xacro:nekonote_end_effector prefix=""/>
+
+</robot>
