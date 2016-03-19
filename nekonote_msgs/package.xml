@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nekonote_msgs</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <description>The nekonote_msgs package contains messages required for the ROS driver for NEKONOTE</description>
 
   <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
