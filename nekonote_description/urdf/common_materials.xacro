@@ -3,7 +3,7 @@
 
   <xacro:macro name="material_grey">
     <material name="">
-      <color rgba=".1 .1 .1 1"/>
+      <color rgba="0.3 0.3 0.3 1"/>
     </material>
   </xacro:macro>
 

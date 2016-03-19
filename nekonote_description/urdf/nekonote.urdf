@@ -17,7 +17,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/BODY.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -39,7 +39,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/JOINT1.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -61,7 +61,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/JOINT2.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -83,7 +83,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/JOINT3.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -105,7 +105,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/JOINT4.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -127,7 +127,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/base/JOINT5.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -145,9 +145,9 @@
   <link name="hand_base"/>
   <!-- joints -->
   <joint name="base_link-base" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
     <child link="base"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <joint name="joint0" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.131"/>
@@ -203,7 +203,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/end_effector_A/HAND1.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>
@@ -225,7 +225,7 @@
         <mesh filename="package://nekonote_description/meshes/visual/end_effector_A/HAND2.stl"/>
       </geometry>
       <material name="">
-        <color rgba=".1 .1 .1 1"/>
+        <color rgba="0.3 0.3 0.3 1"/>
       </material>
     </visual>
     <collision>

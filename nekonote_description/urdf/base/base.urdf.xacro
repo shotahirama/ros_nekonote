@@ -5,7 +5,7 @@
 
   <xacro:macro name="nekonote_base" params="prefix">
     <!-- links -->
-    <link name="${prefix}base" />
+    <link name="${prefix}base"/>
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -130,9 +130,9 @@
 
     <!-- joints -->
     <joint name="${prefix}base_link-base" type="fixed">
-      <parent link="${prefix}base_link" />
-      <child link="${prefix}base" />
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}base"/>
     </joint>
     <joint name="${prefix}joint0" type="revolute">
       <origin xyz="0 0 0.131" rpy="0 0 0"/>
