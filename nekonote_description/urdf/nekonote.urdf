@@ -196,7 +196,7 @@
   <!-- Pi divided by two -->
   <!-- Pi divided by four -->
   <!-- links -->
-  <link name="hand1">
+  <link name="gripper_base">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -218,7 +218,7 @@
       <inertia ixx="9.9436e-05" ixy="1.1831e-07" ixz="-2.354e-05" iyy="0.00011232" iyz="2.5081e-07" izz="8.0987e-05"/>
     </inertial>
   </link>
-  <link name="hand2">
+  <link name="gripper_finger">
     <visual>
       <origin rpy="1.570796327 0 0" xyz="0 0 0"/>
       <geometry>
@@ -242,23 +242,23 @@
   </link>
   <link name="tool0"/>
   <!-- joints -->
-  <joint name="hand_base-hand1" type="fixed">
+  <joint name="hand_base-gripper_base" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="hand_base"/>
-    <child link="hand1"/>
+    <child link="gripper_base"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <joint name="hand_joint" type="revolute">
+  <joint name="gripper_joint" type="revolute">
     <origin rpy="0 0 0" xyz="0.004 0 0.0155"/>
-    <parent link="hand1"/>
-    <child link="hand2"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_finger"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="0.01658" upper="1.1576" velocity="0"/>
   </joint>
-  <joint name="hand2-tool0" type="fixed">
+  <joint name="gripper_finger-tool0" type="fixed">
     <!-- TODO fix tool0 position-->
     <origin rpy="0 0 0" xyz="0 0 0.01"/>
-    <parent link="hand2"/>
+    <parent link="gripper_finger"/>
     <child link="tool0"/>
   </joint>
 </robot>

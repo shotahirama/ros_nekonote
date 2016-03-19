@@ -5,7 +5,7 @@
 
   <xacro:macro name="end_effector_A" params="prefix">
     <!-- links -->
-    <link name="${prefix}hand1">
+    <link name="${prefix}gripper_base">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -25,7 +25,7 @@
         <inertia ixx="9.9436e-05" ixy="1.1831e-07" ixz="-2.354e-05" iyy="0.00011232" iyz="2.5081e-07" izz="8.0987e-05"/>
       </inertial>
     </link>
-    <link name="${prefix}hand2">
+    <link name="${prefix}gripper_finger">
       <visual>
         <origin xyz="0 0 0" rpy="${m_pi_2} 0 0"/>
         <geometry>
@@ -48,23 +48,23 @@
     <link name="${prefix}tool0"/>
 
     <!-- joints -->
-    <joint name="${prefix}hand_base-hand1" type="fixed">
+    <joint name="${prefix}hand_base-gripper_base" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}hand_base"/>
-      <child link="${prefix}hand1"/>
+      <child link="${prefix}gripper_base"/>
       <axis xyz="0 0 1"/>
     </joint>
-    <joint name="${prefix}hand_joint" type="revolute">
+    <joint name="${prefix}gripper_joint" type="revolute">
       <origin xyz="0.004 0 0.0155" rpy="0 0 0"/>
-      <parent link="${prefix}hand1"/>
-      <child link="${prefix}hand2"/>
+      <parent link="${prefix}gripper_base"/>
+      <child link="${prefix}gripper_finger"/>
       <axis xyz="0 1 0"/>
       <limit lower="0.01658" upper="1.1576" effort="0" velocity="0"/>
     </joint>
-    <joint name="${prefix}hand2-tool0" type="fixed">
+    <joint name="${prefix}gripper_finger-tool0" type="fixed">
       <!-- TODO fix tool0 position-->
       <origin xyz="0 0 0.01" rpy="0 0 0" />
-      <parent link="${prefix}hand2"/>
+      <parent link="${prefix}gripper_finger"/>
       <child link="${prefix}tool0"/>
     </joint>
   </xacro:macro>
