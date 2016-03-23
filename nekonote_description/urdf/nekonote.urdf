@@ -174,7 +174,7 @@
     <origin rpy="0 0 0" xyz="0 0 0.1305"/>
     <parent link="link3"/>
     <child link="link4"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <limit effort="5" lower="-1.7453" upper="1.7453" velocity="0"/>
   </joint>
   <joint name="joint4" type="revolute">
