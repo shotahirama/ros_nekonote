@@ -2,6 +2,9 @@
 Changelog for package nekonote_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.4 (2016-03-23)
+----------------------
+
 0.1.3 (2016-03-23)
 ----------------------
 * change names of links and joints around gripper

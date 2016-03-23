@@ -2,6 +2,9 @@
 Changelog for package nekonote_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.4 (2016-03-23)
+----------------------
+
 0.1.3 (2016-03-23)
 ----------------------
 * fix Joint Trajectory Action to permit first point of the trajectory to be executed immediately

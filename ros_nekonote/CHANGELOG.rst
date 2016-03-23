@@ -2,6 +2,9 @@
 Changelog for package ros_nekonote
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.4 (2016-03-23)
+----------------------
+
 0.1.3 (2016-03-23)
 ----------------------
 * add package nekonote_moveit_config

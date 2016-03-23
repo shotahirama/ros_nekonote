@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nekonote_description</name>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <description>The nekonote_description package contains the URDF and meshes describing NEKONOTE from RT Corp.</description>
 
   <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
