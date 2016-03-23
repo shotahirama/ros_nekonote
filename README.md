@@ -31,4 +31,5 @@ After the whole driver brings up, you can run sample programs (Just run one samp
 $ rosrun nekonote_examples direct_teaching_ROS  # Test direct-teaching 
 $ rosrun nekonote_examples test_torque_control_ROS  # Test torque control
 $ rosrun nekonote_examples follow_joint_trajectory_client.py  # Test Joint Trajectory Action
+$ roslaunch nekonote_moveit_config nekonote_planning_execution.launch  # Test MoveIt!
 ```
