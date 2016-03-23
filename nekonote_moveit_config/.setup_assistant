@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: nekonote_description
+    relative_path: urdf/nekonote.urdf
+  SRDF:
+    relative_path: config/nekonote.srdf
+  CONFIG:
+    generated_timestamp: 1458379955
