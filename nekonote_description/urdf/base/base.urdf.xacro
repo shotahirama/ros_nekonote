@@ -139,42 +139,42 @@
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link1"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+      <limit lower="-1.7453" upper="1.7453" effort="5" velocity="0"/>
     </joint>
     <joint name="${prefix}joint1" type="revolute">
       <origin xyz="0 0 0.044" rpy="0 0 0"/>
       <parent link="${prefix}link1"/>
       <child link="${prefix}link2"/>
       <axis xyz="0 1 0"/>
-      <limit lower="-1.57" upper="1.57" effort="0" velocity="0"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="0"/>
     </joint>
     <joint name="${prefix}joint2" type="revolute">
       <origin xyz="0 0 0.1825" rpy="0 0 0"/>
       <parent link="${prefix}link2"/>
       <child link="${prefix}link3"/>
       <axis xyz="0 1 0"/>
-      <limit lower="-1.8353" upper="2.5837" effort="0" velocity="0"/>
+      <limit lower="-1.8353" upper="2.5837" effort="5" velocity="0"/>
     </joint>
     <joint name="${prefix}joint3" type="revolute">
       <origin xyz="0 0 0.1305" rpy="0 0 0"/>
       <parent link="${prefix}link3"/>
       <child link="${prefix}link4"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+      <limit lower="-1.7453" upper="1.7453" effort="5" velocity="0"/>
     </joint>
     <joint name="${prefix}joint4" type="revolute">
       <origin xyz="0 0 0.117" rpy="0 0 0"/>
       <parent link="${prefix}link4"/>
       <child link="${prefix}link5"/>
       <axis xyz="0 -1 0"/>
-      <limit lower="-1.57" upper="1.57" effort="0" velocity="0"/>
+      <limit lower="-1.57" upper="1.57" effort="5" velocity="0"/>
     </joint>
     <joint name="${prefix}joint5" type="revolute">
       <origin xyz="0 0 0.045" rpy="0 0 0"/>
       <parent link="${prefix}link5"/>
       <child link="${prefix}hand_base"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="-1.7453" upper="1.7453" effort="0" velocity="0"/>
+      <limit lower="-1.7453" upper="1.7453" effort="5" velocity="0"/>
     </joint>
   </xacro:macro>
 

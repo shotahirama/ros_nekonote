@@ -61,10 +61,9 @@
       <axis xyz="0 1 0"/>
       <limit lower="0.01658" upper="1.1576" effort="0" velocity="0"/>
     </joint>
-    <joint name="${prefix}gripper_finger-tool0" type="fixed">
-      <!-- TODO fix tool0 position-->
-      <origin xyz="0 0 0.01" rpy="0 0 0" />
-      <parent link="${prefix}gripper_finger"/>
+    <joint name="${prefix}gripper_base-tool0" type="fixed">
+      <origin xyz="0 0 0.08" rpy="0 0 0" />
+      <parent link="${prefix}gripper_base"/>
       <child link="${prefix}tool0"/>
     </joint>
   </xacro:macro>

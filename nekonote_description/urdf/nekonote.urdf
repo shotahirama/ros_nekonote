@@ -154,42 +154,42 @@
     <parent link="base_link"/>
     <child link="link1"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0" lower="-1.7453" upper="1.7453" velocity="0"/>
+    <limit effort="5" lower="-1.7453" upper="1.7453" velocity="0"/>
   </joint>
   <joint name="joint1" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.044"/>
     <parent link="link1"/>
     <child link="link2"/>
     <axis xyz="0 1 0"/>
-    <limit effort="0" lower="-1.57" upper="1.57" velocity="0"/>
+    <limit effort="10" lower="-1.57" upper="1.57" velocity="0"/>
   </joint>
   <joint name="joint2" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.1825"/>
     <parent link="link2"/>
     <child link="link3"/>
     <axis xyz="0 1 0"/>
-    <limit effort="0" lower="-1.8353" upper="2.5837" velocity="0"/>
+    <limit effort="5" lower="-1.8353" upper="2.5837" velocity="0"/>
   </joint>
   <joint name="joint3" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.1305"/>
     <parent link="link3"/>
     <child link="link4"/>
     <axis xyz="0 0 1"/>
-    <limit effort="0" lower="-1.7453" upper="1.7453" velocity="0"/>
+    <limit effort="5" lower="-1.7453" upper="1.7453" velocity="0"/>
   </joint>
   <joint name="joint4" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.117"/>
     <parent link="link4"/>
     <child link="link5"/>
     <axis xyz="0 -1 0"/>
-    <limit effort="0" lower="-1.57" upper="1.57" velocity="0"/>
+    <limit effort="5" lower="-1.57" upper="1.57" velocity="0"/>
   </joint>
   <joint name="joint5" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.045"/>
     <parent link="link5"/>
     <child link="hand_base"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="0" lower="-1.7453" upper="1.7453" velocity="0"/>
+    <limit effort="5" lower="-1.7453" upper="1.7453" velocity="0"/>
   </joint>
   <!-- End Effector -->
   <!-- Pi, the ratio of a circle's circumference to its diameter -->
@@ -255,10 +255,9 @@
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="0.01658" upper="1.1576" velocity="0"/>
   </joint>
-  <joint name="gripper_finger-tool0" type="fixed">
-    <!-- TODO fix tool0 position-->
-    <origin rpy="0 0 0" xyz="0 0 0.01"/>
-    <parent link="gripper_finger"/>
+  <joint name="gripper_base-tool0" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.08"/>
+    <parent link="gripper_base"/>
     <child link="tool0"/>
   </joint>
 </robot>
