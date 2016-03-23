@@ -842,7 +842,19 @@ public:
         as_.setAborted(as_result);
         return;
       }
-      if (goal->trajectory.points[i].time_from_start <= past_time_from_start)
+      if (i == 0)
+      {
+        if (goal->trajectory.points[0].time_from_start < past_time_from_start)
+        {
+          std::string err_str("time_from_start of the first point in the goal is less than 0.");
+          ROS_ERROR("On %s: %s It is invalid. Aborted.", jta_ns_.c_str(), err_str.c_str());
+          as_result.error_code = as_result.INVALID_GOAL;
+          as_result.error_string = err_str;
+          as_.setAborted(as_result);
+          return;
+        }
+      }
+      else if (goal->trajectory.points[i].time_from_start <= past_time_from_start)
       {
         std::string err_str("time_from_start of a point in the goal is not more than the previous point.");
         ROS_ERROR("On %s: %s It is invalid. Aborted.", jta_ns_.c_str(), err_str.c_str());
@@ -867,12 +879,29 @@ public:
     // Push trajectory requests to queue
     std::vector<RequestItemPtr> request_list;
     past_time_from_start = ros::Duration(0);
+    int tm_err = 0;
     for (int i = 0; i < goal->trajectory.points.size(); i++)
     {
       std::vector<double> angles;
       for (int j = 0; j < joint_index.size(); j++)
         angles.push_back(goal->trajectory.points[i].positions[joint_index[j]]);
       int tm = ((goal->trajectory.points[i].time_from_start - past_time_from_start).toSec() * 1000.0);
+      if (tm == 0)
+      {
+        tm = 1;
+        tm_err += tm;
+      }
+      else if (tm_err > 0 && tm > tm_err)
+      {
+        tm -= tm_err;
+        tm_err = 0;
+      }
+      else if (tm_err > 0)
+      {
+        tm_err -= (tm - 1);
+        tm = 1;
+      }
+
       if (i == 0)
       {
         RequestItemPtr request = boost::make_shared<RequestItemPushStartAngles>(angles, tm);
