@@ -16,11 +16,9 @@
   <!-- If needed, broadcast static tf for robot root -->
   
 
-  <!-- We do not have a robot connected, so publish fake joint states -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="/use_gui" value="false"/>
-    <rosparam param="/source_list">[/move_group/fake_controller_joint_states]</rosparam>
-    <remap from="joint_states" to="robot/joint_states" />
+  <!-- We do not have a robot connected, so make fake Joint Trajectory Action Server and publish fake joint states -->
+  <node name="dummy_joint_trajectory_controller" pkg="nekonote_moveit_config" type="dummy_joint_trajectory_controller">
+    <remap from="/joint_states" to="/robot/joint_states" />
   </node>
 
   <!-- Given the published joint states, publish tf for the robot links -->
@@ -31,7 +29,6 @@
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find nekonote_moveit_config)/launch/move_group.launch">
     <arg name="allow_trajectory_execution" value="true"/>
-    <arg name="fake_execution" value="true"/>
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
   </include>

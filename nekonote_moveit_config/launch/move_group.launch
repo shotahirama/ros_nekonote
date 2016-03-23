@@ -15,7 +15,6 @@
 
   <!-- move_group settings -->
   <arg name="allow_trajectory_execution" default="true"/>
-  <arg name="fake_execution" default="false"/>
   <arg name="max_safe_path_cost" default="1"/>
   <arg name="jiggle_fraction" default="0.05" />
   <arg name="publish_monitored_planning_scene" default="true"/>
@@ -28,8 +27,7 @@
   <!-- Trajectory Execution Functionality -->
   <include ns="move_group" file="$(find nekonote_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_manage_controllers" value="true" />
-    <arg name="moveit_controller_manager" value="nekonote" unless="$(arg fake_execution)"/>
-    <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
+    <arg name="moveit_controller_manager" value="nekonote" />
   </include>
 
   <!-- Sensors Functionality -->
