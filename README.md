@@ -15,6 +15,7 @@ If your catkin workspace is `~/catkin_ws`,
 $ cd ~/catkin_ws/src/
 $ git clone https://github.com/rt-net/ros_nekonote.git
 $ cd ..
+$ rosdep install --from-paths src --ignore-src --rosdistro indigo -r -y
 $ catkin_make  # or any build commands available in ROS, e.g. catkin build
 $ source devel/setup.bash
 ```
