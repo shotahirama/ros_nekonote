@@ -2,6 +2,10 @@
 Changelog for package nekonote_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.5 (2016-03-25)
+----------------------
+* use picojson to parse response from NEKONOTE
+
 0.1.4 (2016-03-23)
 ----------------------
 

@@ -2,6 +2,11 @@
 Changelog for package nekonote_moveit_config 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.5 (2016-03-25)
+----------------------
+* fix license code of dummy_joint_trajectory_controller
+* fix dependencies
+
 0.1.4 (2016-03-23)
 ----------------------
 * update nekonote_moveit_controller_manager.launch.xml to set several params

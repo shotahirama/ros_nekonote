@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nekonote_driver</name>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <description>The nekonote_driver package provides a ROS driver for NEKONOTE from RT Corp.</description>
 
   <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
