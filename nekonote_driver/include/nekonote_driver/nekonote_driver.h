@@ -48,6 +48,10 @@
 #include <vector>
 #include <sstream>
 
+#include <nekonote_driver/picojson.h>
+
+#define TCP_MSS (1460)
+
 #ifdef ROS_DEBUG
 #define OUTPUT_LOG(x, ...)                                                                                             \
   {                                                                                                                    \
@@ -295,7 +299,7 @@ public:
     }
   }
 
-  int Read(char* buf, const unsigned int buf_len)
+  int Read(char* buf, const unsigned int buf_len, const char end_char)
   {
     unsigned int left_len = buf_len;
     char* p = buf;
@@ -326,12 +330,21 @@ public:
       }
       else
       {
-        p += size;
-        left_len -= size;
+        for (int i = 0; i < size; i++)
+        {
+          p++;
+          left_len--;
+          if (*(p - 1) == end_char)
+          {
+            for (int j = 0; j < (size - i - 1); j++)
+              *(p + j) = '\0';
+            break;
+          }
+        }
       }
-    } while (*(p - 1) != '\n');
+    } while (*(p - 1) != end_char);
 
-    *(p - 1) = '\0';  // replace line break to null character
+    *(p - 1) = '\0';  // replace end character to null character
 
     return buf_len - left_len;  // Read device file and put the data into buf (max size is (buf_len) bytes)
   }
@@ -390,6 +403,7 @@ private:
   const int joint_num_;
   Time time;
   const int STANDBY_TIME;  // Communication standby time[msec]
+  unsigned int last_comm_id;
 
   /***************Message handling function***************/
   std::string makeRequest(const std::string& method_name, const std::string& params, const std::string& id) const
@@ -399,7 +413,7 @@ private:
     return request;
   }
 
-  void sendRequest(const std::string& method_name, const std::vector<std::string>& params)
+  void sendRequest(const std::string& method_name, const std::vector<std::string>& params, const std::string& id)
   {
     std::string params_str = "[";
     if (params.size() == 0)
@@ -412,8 +426,8 @@ private:
     }
     params_str.erase(params_str.end() - 1);
     params_str += "]";
-    char send_buf[1460];
-    strcpy(send_buf, makeRequest(method_name, params_str, "\"1\"").c_str());
+    char send_buf[TCP_MSS];
+    strcpy(send_buf, makeRequest(method_name, params_str, id).c_str());
     OUTPUT_LOG(is_debug_, "send: %s", send_buf);
     if (sock_comm.Write(send_buf, strlen(send_buf)) != strlen(send_buf))
       throw NekonoteException("cannot write full data to socket");
@@ -421,36 +435,70 @@ private:
 
   void parseResponse(const std::string& response, std::string* result, std::string* error, std::string* id) const
   {
-    std::string result_key("\"result\":");
-    std::string error_key("\"error\":");
-    std::string id_key(",\"id\":");
-    size_t result_p = response.find(result_key);
-    size_t error_p = response.find(error_key);
-    size_t id_p = response.find(id_key);
-    if (error_p == std::string::npos || id_p == std::string::npos)
-      throw NekonoteException("cannot parse response from NEKONOTE");
-    if (result_p == std::string::npos)
-      throw NekonoteException("remote method is missing");
-    if (result_p >= error_p || error_p >= id_p)
-      throw NekonoteException("cannot parse response from NEKONOTE");
-    size_t result_front = result_p + result_key.length();
-    size_t result_back = error_p - 2;
-    size_t error_front = error_p + error_key.length();
-    size_t error_back = id_p - 1;
-    size_t id_front = id_p + id_key.length();
-    size_t id_back = response.size() - 2;
-    *result = response.substr(result_front, result_back - result_front + 1);
-    *error = response.substr(error_front, error_back - error_front + 1);
-    *id = response.substr(id_front, id_back - id_front + 1);
+    std::stringstream ss;
+    ss << response;
+    picojson::value v;
+    ss >> v;
+    if (ss.fail())
+      throw NekonoteException("cannot parse response");
+    else if (!v.is<picojson::object>())
+      throw NekonoteException("response is not JSON object");
+    picojson::object& o = v.get<picojson::object>();
+    ss.str("");
+    ss << o["result"];
+    *result = ss.str();
+    ss.str("");
+    ss << o["error"];
+    *error = ss.str();
+    ss.str("");
+    ss << o["id"];
+    *id = ss.str();
   }
 
   void getResponse(std::string* result, std::string* error, std::string* id)
   {
-    char receive_buf[1460];
-    sock_comm.Read(receive_buf, sizeof(receive_buf));
+    char receive_buf[TCP_MSS];
+    sock_comm.Read(receive_buf, sizeof(receive_buf), '\n');
     OUTPUT_LOG(is_debug_, "receive: %s", receive_buf);
     std::string buf(receive_buf);
     parseResponse(buf, result, error, id);
+  }
+
+  void sendRequestAndGetResponse(const std::string& method_name, const std::vector<std::string>& params,
+                                 std::string* result)
+  {
+    std::ostringstream os;
+    os << last_comm_id;
+    std::string send_id = (std::string)("\"") /*+ "ros"*/ + os.str() + "\"";
+    sendRequest(method_name, params, send_id);
+    std::string error;
+    std::string received_id;
+    getResponse(result, &error, &received_id);
+
+    // Error check
+    if (error != "null")
+    {
+      std::stringstream ss_e;
+      ss_e << error;
+      picojson::value v;
+      ss_e >> v;
+      if (ss_e.fail())
+        throw NekonoteException("cannot parse error member in response");
+      if (!v.is<picojson::null>())
+      {
+        if (v.is<picojson::object>())
+        {
+          picojson::object& o = v.get<picojson::object>();
+          throw NekonoteException(o["message"].to_str());
+        }
+        else
+          throw NekonoteException("some error occurred at JSON-RPC call");
+      }
+    }
+    if (received_id != send_id)
+      throw NekonoteException("received data's id is different from sended data's id");
+
+    last_comm_id++;
   }
 
   /***************Common part of procedure call funciton***************/
@@ -513,11 +561,8 @@ private:
         params.push_back(os.str());
       }
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest(method_name, params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse(method_name, params, &result);
       time.setTimeMark();
       *motion_id = atoi(result.c_str());
     }
@@ -534,11 +579,8 @@ private:
       std::vector<std::string> params;
       params.push_back("0");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest(method_name, params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse(method_name, params, &result);
       time.setTimeMark();
     }
     catch (const NekonoteException& err)
@@ -550,7 +592,7 @@ private:
 public:
   /***************Initialization***************/
   NekonoteDriver(const std::string& addr = "", const int port = -1, const bool is_debug = true, const int joint_num = 6)
-    : sock_comm(addr.c_str(), port), is_debug_(is_debug), joint_num_(joint_num), STANDBY_TIME(0)
+    : sock_comm(addr.c_str(), port), is_debug_(is_debug), joint_num_(joint_num), STANDBY_TIME(0), last_comm_id(0)
   {
   }
 
@@ -592,11 +634,8 @@ public:
       std::vector<std::string> params;
       params.push_back("0");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("getVersion", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("getVersion", params, &result);
       time.setTimeMark();
       result.erase(result.begin());
       result.erase(result.end() - 1);
@@ -616,11 +655,8 @@ public:
       std::vector<std::string> params;
       params.push_back("0");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("getLinkAngles", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("getLinkAngles", params, &result);
       time.setTimeMark();
       result.erase(result.begin());
       result.erase(result.end() - 1);
@@ -649,11 +685,8 @@ public:
       std::vector<std::string> params;
       params.push_back("0");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("getAllData", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("getAllData", params, &result);
       time.setTimeMark();
       getAllDataFromResult(result, angles, motor_temps, last_motion_id, mode, speed, torque);
     }
@@ -679,11 +712,8 @@ public:
         params.push_back(os.str());
       }
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("torqueControl", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("torqueControl", params, &result);
       time.setTimeMark();
       getAllDataFromResult(result, angles, motor_temps, last_motion_id, mode, speed, torque);
     }
@@ -735,11 +765,8 @@ public:
       std::vector<std::string> params;
       params.push_back("0");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("stopMotion", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("stopMotion", params, &result);
       time.setTimeMark();
       *motion_id = atoi(result.c_str());
     }
@@ -761,11 +788,8 @@ public:
       std::vector<std::string> params;
       params.push_back("\"Emergency\"");
       time.msleepFromTimeMark(STANDBY_TIME);
-      sendRequest("transitionState", params);
       std::string result;
-      std::string error;
-      std::string id;
-      getResponse(&result, &error, &id);
+      sendRequestAndGetResponse("transitionState", params, &result);
       time.setTimeMark();
     }
     catch (const NekonoteException& err)
