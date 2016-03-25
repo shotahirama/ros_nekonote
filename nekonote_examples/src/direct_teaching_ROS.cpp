@@ -38,12 +38,16 @@
 #include "nekonote_msgs/JointTrajectoryAction.h"
 
 bool robot_enabled = false;
+std::vector<std::string> joint_names;
 std::vector<double> joint_angles;
 
 void getJointAngles(const sensor_msgs::JointState::ConstPtr& joint_states)
 {
-  joint_angles = joint_states->position;
-  robot_enabled = true;
+  if (joint_states->name == joint_names)
+  {
+    joint_angles = joint_states->position;
+    robot_enabled = true;
+  }
 }
 
 int main(int argc, char** argv)
@@ -68,7 +72,6 @@ int main(int argc, char** argv)
 
   ROS_INFO("Getting ROS parameter...");
   ros::Rate loop_rate(10);
-  std::vector<std::string> joint_names;
   if (ros::param::get("nekonote_driver/joint_names", joint_names))
     ROS_INFO("Got ROS parameter");
   else

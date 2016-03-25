@@ -38,14 +38,18 @@ const double KP = 20;
 const double KD = 2;
 
 bool is_updated = false;
+std::vector<std::string> joint_names;
 std::vector<double> joint_angles;
 std::vector<double> joint_speed;
 
 void getJointStates(const sensor_msgs::JointState::ConstPtr& joint_states)
 {
-  joint_angles = joint_states->position;
-  joint_speed = joint_states->velocity;
-  is_updated = true;
+  if (joint_states->name == joint_names)
+  {
+    joint_angles = joint_states->position;
+    joint_speed = joint_states->velocity;
+    is_updated = true;
+  }
 }
 
 int main(int argc, char** argv)
@@ -62,7 +66,6 @@ int main(int argc, char** argv)
 
   ROS_INFO("Getting ROS parameter...");
   ros::Rate loop_rate(1000);
-  std::vector<std::string> joint_names;
   if (ros::param::get("nekonote_driver/joint_names", joint_names))
     ROS_INFO("Got ROS parameter");
   else
