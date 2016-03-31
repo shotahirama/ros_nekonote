@@ -2,6 +2,10 @@
 Changelog for package nekonote_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.6 (2016-03-31)
+----------------------
+* fix nekonote_bringup.launch to get address and port number as arg
+
 0.1.5 (2016-03-25)
 ----------------------
 * use picojson to parse response from NEKONOTE

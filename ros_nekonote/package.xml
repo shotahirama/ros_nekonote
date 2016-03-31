@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>ros_nekonote</name>
-  <version>0.1.5</version>
+  <version>0.1.6</version>
   <description>The ros_nekonote package provides ROS tools for NEKONOTE from RT Corp.</description>
 
   <maintainer email="dev@rt-net.jp">Noriaki Nakagawa</maintainer>
