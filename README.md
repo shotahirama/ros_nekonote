@@ -35,3 +35,7 @@ $ rosrun nekonote_examples test_torque_control_ROS  # Test torque control
 $ rosrun nekonote_examples follow_joint_trajectory_client.py  # Test Joint Trajectory Action
 $ roslaunch nekonote_moveit_config nekonote_planning_execution.launch  # Test MoveIt!
 ```
+
+## Details
+
+More details, please see [Wiki page](https://github.com/rt-net/ros_nekonote/wiki).
