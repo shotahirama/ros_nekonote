@@ -2,6 +2,10 @@
 Changelog for package nekonote_moveit_config 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.7 (2016-04-05)
+----------------------
+* set default planner of MoveIt! as RRTConnectkConfigDefault
+
 0.1.6 (2016-03-31)
 ----------------------
 
