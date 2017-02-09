@@ -13,6 +13,11 @@
     <remap from="joint_states" to="robot/joint_states" />
   </node>
 
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" respawn="true">
+    <remap from="joint_states" to="robot/joint_states" />
+    <rosparam param="source_list">["robot/joint_states"]</rosparam>
+  </node>
+
   <!-- The planning and execution components of MoveIt! configured to  
        publish the current configuration of the robot (simulated or real)
        and the current state of the world as seen by the planner -->

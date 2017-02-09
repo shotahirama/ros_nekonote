@@ -1,6 +1,6 @@
 <launch>
   <!-- Common args -->
-  <arg name="address" default="192.168.1.54"/>
+  <arg name="address" default="192.168.22.54"/>
   <arg name="port_number" default="1023"/>
   <arg name="joint_names" default="['joint0', 'joint1', 'joint2', 'joint3', 'joint4', 'joint5']"/>
   <arg name="namespace_of_topics" default="robot"/>
